@@ -1,0 +1,592 @@
+[
+  {
+    "group": "Ridge Tiles",
+    "keyword": "antique ridge tiles",
+    "avg_monthly_searches": 50
+  },
+  {
+    "group": "antique ridge tile",
+    "keyword": "old ridge tiles",
+    "avg_monthly_searches": 50
+  },
+  {
+    "group": "old clay ridge tiles",
+    "keyword": "old clay ridge tile",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed clay ridge tiles",
+    "keyword": "ornate ridge tile",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "reclaimed clay ridge tiles",
+    "keyword": "Victorian ridge tile",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "georgian ridge tile",
+    "keyword": "Edwardian ridge tile",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Edwardian ridge tiles",
+    "keyword": "reclaimed victorian ridge tiles",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "reclaimed victorian ridge tile",
+    "keyword": "reclaimed blue ridge tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed red ridge tiles",
+    "keyword": "reclaimed terracotta ridge tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "dreadnought reclaimed ridge tiles",
+    "keyword": "reclaimed ridge tiles near me",
+    "avg_monthly_searches": 110
+  },
+  {
+    "group": "Roof Tiles",
+    "keyword": "antique roof tiles",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "antique roof tile",
+    "keyword": "old roof tiles",
+    "avg_monthly_searches": 260
+  },
+  {
+    "group": "old roof tile",
+    "keyword": "old clay roof tiles",
+    "avg_monthly_searches": 50
+  },
+  {
+    "group": "reclaimed clay roof tiles",
+    "keyword": "fancy roof tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "fancy roof tile",
+    "keyword": "Victorian roof tile",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "victorian roof tiles",
+    "keyword": "georgian roof tiles",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Edwardian roof tile",
+    "keyword": "Edwardian roof tiles",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Edwardian roof tile",
+    "keyword": "reclaimed victorian roof tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed red roof tile",
+    "keyword": "reclaimed red roof tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Victorian terracotta roof tile",
+    "keyword": "Victorian terracotta roof tiles",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "acme reclaimed roof tile",
+    "keyword": "hawkins reclaimed roof tile",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "acme reclaimed roof tile",
+    "keyword": "hawkins reclaimed roof tiles",
+    "avg_monthly_searches": 40
+  },
+  {
+    "group": "rosemary reclaimed roof tiles",
+    "keyword": "rosemary reclaimed roof tile",
+    "avg_monthly_searches": 40
+  },
+  {
+    "group": "dreadnought reclaimed roof tiles",
+    "keyword": "marley antique roof tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "dreadnought antique roof tile",
+    "keyword": "dreadnought antique roof tiles",
+    "avg_monthly_searches": 880
+  },
+  {
+    "group": "dreadnought antique roof tile",
+    "keyword": "reclaimed roof tiles near me",
+    "avg_monthly_searches": 720
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Reclaimed Roof Slate",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Reclaimed Roof Slates",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Reclaimed Slate roof",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Reclaimed Roof Tiles",
+    "avg_monthly_searches": 880
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Reclaimed Welsh Slate",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Reclaimed Slate Roof Tiles",
+    "avg_monthly_searches": 260
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Used Roofing Slate for Sale",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Used Slate Roof Tiles For Sale",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Recycled Slate Slate Roof Tiles",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Old slate roof tiles",
+    "avg_monthly_searches": 70
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Salvaged Slate roof Tiles",
+    "avg_monthly_searches": 260
+  },
+  {
+    "group": "Reclaimed roof tiles for slate roofs",
+    "keyword": "Slate tiles reclaimed",
+    "avg_monthly_searches": 70
+  },
+  {
+    "group": "Pan Tiles",
+    "keyword": "old pan tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "concrete pan tile",
+    "keyword": "concrete pan tiles",
+    "avg_monthly_searches": 210
+  },
+  {
+    "group": "Victorian pan tile",
+    "keyword": "victorian pan tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed terracotta pan tile",
+    "keyword": "marley pan tiles",
+    "avg_monthly_searches": 110
+  },
+  {
+    "group": "marley pan tile",
+    "keyword": "redland pan tiles",
+    "avg_monthly_searches": 50
+  },
+  {
+    "group": "russell pan tiles",
+    "keyword": "sandtoft pan tiles",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "reclaimed Redland renown pan tiles",
+    "keyword": "reclaimed Marley modern pan tiles",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Chimney Pots",
+    "keyword": "antique chimney pot",
+    "avg_monthly_searches": 390
+  },
+  {
+    "group": "antique terracotta chimney pot",
+    "keyword": "reclaimed chimney pot",
+    "avg_monthly_searches": 320
+  },
+  {
+    "group": "antique terracotta chimney pot",
+    "keyword": "antique clay chimney pot",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "antique chimney pot cowl",
+    "keyword": "Old Chimney Pot",
+    "avg_monthly_searches": 320
+  },
+  {
+    "group": "antique chimney pot cowl",
+    "keyword": "Victorian Chimney Pot",
+    "avg_monthly_searches": 320
+  },
+  {
+    "group": "Garden Assorted",
+    "keyword": "antique cast iron lamppost",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Garden Assorted",
+    "keyword": "antique garden roller",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "Garden Assorted",
+    "keyword": "antique stone birdbath",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Garden Assorted",
+    "keyword": "antique driveway gates",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Garden Assorted",
+    "keyword": "antique garden urns",
+    "avg_monthly_searches": 50
+  },
+  {
+    "group": "Garden Assorted",
+    "keyword": "reclaimed garden urns",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Brick Slips",
+    "keyword": "brick slips",
+    "avg_monthly_searches": 271
+  },
+  {
+    "group": "Brick Slips",
+    "keyword": "buy brick slips",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "Brick Slips",
+    "keyword": "rustic brick slips",
+    "avg_monthly_searches": 210
+  },
+  {
+    "group": "Brick Slips",
+    "keyword": "slim brick tiles",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "Plinth Bricks",
+    "keyword": "reclaimed plinth bricks",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "Rustic Bricks",
+    "keyword": "reclaimed rustic bricks",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Rustic Bricks",
+    "keyword": "antique rustic bricks",
+    "avg_monthly_searches": 110
+  },
+  {
+    "group": "Wirecut Bricks",
+    "keyword": "reclaimed wirecut bricks",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Bricks Generic",
+    "keyword": "reclaimed bricks",
+    "avg_monthly_searches": 4400
+  },
+  {
+    "group": "Bricks Generic",
+    "keyword": "antique bricks",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "Bricks Generic",
+    "keyword": "antique house bricks",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Bricks Generic",
+    "keyword": "bricks to match my house",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "bricks to match my victorian house",
+    "keyword": "farmhouse bricks",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "reclaimed glazed brick",
+    "keyword": "reclaimed yellow stock brick",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "New Handmade Bricks",
+    "keyword": "Cant bricks",
+    "avg_monthly_searches": 320
+  },
+  {
+    "group": "New Handmade Bricks",
+    "keyword": "squint bricks",
+    "avg_monthly_searches": 590
+  },
+  {
+    "group": "New Handmade Bricks",
+    "keyword": "bullnose bricks",
+    "avg_monthly_searches": 880
+  },
+  {
+    "group": "Reclaimed Handmade Bricks",
+    "keyword": "Reclaimed Handmade Bricks",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "Pavers",
+    "keyword": "victorian pavers",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "Pavers",
+    "keyword": "staffordshire blue pavers",
+    "avg_monthly_searches": 170
+  },
+  {
+    "group": "patterned antique pavers",
+    "keyword": "reclaimed paving bricks",
+    "avg_monthly_searches": 260
+  },
+  {
+    "group": "patterned antique pavers",
+    "keyword": "victorian paving bricks",
+    "avg_monthly_searches": 40
+  },
+  {
+    "group": "reclaimed diamond paving",
+    "keyword": "reclaimed clay pavers",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed diamond paving",
+    "keyword": "reclaimed clay pavers for sale",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed diamond paving",
+    "keyword": "victorian paving slabs",
+    "avg_monthly_searches": 990
+  },
+  {
+    "group": "reclaimed diamond paving",
+    "keyword": "recycled brick pavers",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "reclaimed stone kerbing",
+    "keyword": "old granite kerbs",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "reclaimed stone kerbing",
+    "keyword": "reclaimed granite kerbs",
+    "avg_monthly_searches": 30
+  },
+  {
+    "group": "reclaimed stone kerbing",
+    "keyword": "reclaimed granite kerbstones",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "reclaimed stone kerbing",
+    "keyword": "victorian coping stones",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "Pier Caps",
+    "keyword": "antique pier caps",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Victorian pillar caps",
+    "keyword": "reclaimed stone pier caps",
+    "avg_monthly_searches": 50
+  },
+  {
+    "group": "Victorian pillar caps",
+    "keyword": "reclaimed stone pillar caps",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Flagstone Paving",
+    "keyword": "antique flag stones",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Quarry Tiles",
+    "keyword": "antique quarry tiles",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "reclaimed quarry tiles",
+    "keyword": "genuine victorian quarry tiles",
+    "avg_monthly_searches": 480
+  },
+  {
+    "group": "reclaimed quarry tiles",
+    "keyword": "antique terracotta tiles",
+    "avg_monthly_searches": 40
+  },
+  {
+    "group": "Fireplace",
+    "keyword": "cast iron fireplace",
+    "avg_monthly_searches": 3600
+  },
+  {
+    "group": "Fireplace",
+    "keyword": "antique cast iron fireplace",
+    "avg_monthly_searches": 390
+  },
+  {
+    "group": "Fireplace",
+    "keyword": "victorian cast iron fireplace",
+    "avg_monthly_searches": 720
+  },
+  {
+    "group": "Fireplace",
+    "keyword": "victorian metal fireplace",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Fireplace",
+    "keyword": "antique cast iron bedroom fireplace",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Fireplace",
+    "keyword": "antique victorian cast iron fireplaces",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Air Bricks & Air Vents",
+    "keyword": "victorian air brick",
+    "avg_monthly_searches": 110
+  },
+  {
+    "group": "Air Bricks & Air Vents",
+    "keyword": "victorian air vents",
+    "avg_monthly_searches": 20
+  },
+  {
+    "group": "Reclaimed Floorboards",
+    "keyword": "Reclaimed floorboards",
+    "avg_monthly_searches": 1900
+  },
+  {
+    "group": "antique floorboards",
+    "keyword": "victorian floorboards",
+    "avg_monthly_searches": 210
+  },
+  {
+    "group": "antique floorboards",
+    "keyword": "old floorboards",
+    "avg_monthly_searches": 210
+  },
+  {
+    "group": "antique floorboards",
+    "keyword": "antique wooden flooring",
+    "avg_monthly_searches": 140
+  },
+  {
+    "group": "victorian fireplace beams",
+    "keyword": "antique oak beam",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "victorian fireplace beams",
+    "keyword": "antique wooden beams",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "Cobbles",
+    "keyword": "antique cobbles",
+    "avg_monthly_searches": 110
+  },
+  {
+    "group": "antique granite setts",
+    "keyword": "reclaimed cobbles",
+    "avg_monthly_searches": 480
+  },
+  {
+    "group": "Railway Sleepers",
+    "keyword": "railway sleepers",
+    "avg_monthly_searches": 27100
+  },
+  {
+    "group": "old railway sleepers",
+    "keyword": "wooden sleepers for garden",
+    "avg_monthly_searches": 1300
+  },
+  {
+    "group": "old railway sleepers",
+    "keyword": "new railway sleepers",
+    "avg_monthly_searches": 210
+  },
+  {
+    "group": "old railway sleepers",
+    "keyword": "oak railway sleepers",
+    "avg_monthly_searches": 6600
+  },
+  {
+    "group": "Misc",
+    "keyword": "cast iron bath",
+    "avg_monthly_searches": 1600
+  },
+  {
+    "group": "Misc",
+    "keyword": "antique cast iron bath",
+    "avg_monthly_searches": 90
+  },
+  {
+    "group": "Misc",
+    "keyword": "antique cast iron bath tub",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Misc",
+    "keyword": "victorian cast iron bath tub",
+    "avg_monthly_searches": 10
+  },
+  {
+    "group": "Misc",
+    "keyword": "victorian cast iron bath",
+    "avg_monthly_searches": 50
+  }
+]

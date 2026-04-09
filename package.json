@@ -1,0 +1,22 @@
+{
+  "name": "cawarden-serp-tracker",
+  "version": "1.0.0",
+  "description": "Automated SERP rank tracker via SEMrush for Cawarden",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "track": "node src/index.js",
+    "install-deps": "npm install"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "csv-writer": "^1.6.0",
+    "csv-parse": "^5.5.6",
+    "dotenv": "^16.4.5",
+    "googleapis": "^140.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

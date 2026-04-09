@@ -1,0 +1,74 @@
+name: SERP Tracker
+
+on:
+  schedule:
+    # Every Monday at 07:00 UTC (08:00 UK summer / 07:00 UK winter)
+    - cron: '0 7 * * 1'
+  # Allow manual runs from the Actions tab (useful for testing)
+  workflow_dispatch:
+    inputs:
+      track_date:
+        description: 'Override date (YYYY-MM-DD). Leave blank for today.'
+        required: false
+        type: string
+
+concurrency:
+  group: serp-tracker
+  cancel-in-progress: false   # never cancel a running tracking job
+
+jobs:
+  track:
+    name: Fetch & Record Rankings
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # ── Checkout ────────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Node.js ─────────────────────────────────────────────────────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ── Run tracker ─────────────────────────────────────────────────────────
+      - name: Run SERP tracker
+        env:
+          SEMRUSH_API_KEY:            ${{ secrets.SEMRUSH_API_KEY }}
+          SEMRUSH_PROJECT_ID:         ${{ secrets.SEMRUSH_PROJECT_ID }}
+          DOMAIN:                     ${{ vars.DOMAIN }}
+          SEMRUSH_DATABASE:           ${{ vars.SEMRUSH_DATABASE }}
+          GOOGLE_SPREADSHEET_ID:      ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+          GOOGLE_SHEET_NAME:          ${{ vars.GOOGLE_SHEET_NAME }}
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY:         ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          CSV_OUTPUT_PATH:            ./data/rankings.csv
+          TRACK_DATE:                 ${{ github.event.inputs.track_date }}
+        run: node src/index.js
+
+      # ── Upload CSV as workflow artifact ─────────────────────────────────────
+      - name: Upload rankings CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: rankings-${{ github.run_id }}
+          path: data/rankings.csv
+          retention-days: 90
+
+      # ── Commit updated CSV back to repo ─────────────────────────────────────
+      - name: Commit rankings CSV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name  "SERP Tracker Bot"
+          git config user.email "serp-tracker[bot]@users.noreply.github.com"
+          git add data/rankings.csv
+          # Only commit if there are changes
+          git diff --staged --quiet || \
+            git commit -m "chore: update SERP rankings $(date -u +'%Y-%m-%d')"
+          git push
