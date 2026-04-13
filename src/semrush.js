@@ -9,6 +9,8 @@
  */
 
 import axios from "axios";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { resolve } from "path";
 
 const BASE_URL = "https://api.semrush.com";
 const MANAGEMENT_URL = "https://api.semrush.com/management/v1";
@@ -16,6 +18,27 @@ const MANAGEMENT_URL = "https://api.semrush.com/management/v1";
 // SEMrush API throttle: 10 req/s on most plans — we stay conservative
 const DELAY_MS = 200;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// ─── Cache helpers ────────────────────────────────────────────────────────────
+
+function cacheRead(cacheDir, date, device) {
+  const file = resolve(cacheDir, `${date}-${device}.json`);
+  if (!existsSync(file)) return null;
+  try {
+    const raw = JSON.parse(readFileSync(file, "utf-8"));
+    console.log(`[Cache] Loaded ${device} rankings from ${file}`);
+    return new Map(raw);
+  } catch {
+    return null;
+  }
+}
+
+function cacheWrite(cacheDir, date, device, map) {
+  if (!existsSync(cacheDir)) mkdirSync(cacheDir, { recursive: true });
+  const file = resolve(cacheDir, `${date}-${device}.json`);
+  writeFileSync(file, JSON.stringify([...map]));
+  console.log(`[Cache] Saved ${device} rankings → ${file}`);
+}
 
 /**
  * Fetch rankings using the Position Tracking project.
@@ -137,18 +160,53 @@ export async function fetchDomainOrganic(domain, apiKey, database = "uk") {
  * Uses Position Tracking (mobile+desktop) if projectId is set,
  * otherwise falls back to Organic Research (desktop only).
  *
- * @param {string[]} keywords       - target keywords to look up
- * @param {object}  cfg             - env config
+ * Safety options (via cfg):
+ *  - dryRun:   skip real API calls; return mock positions for every keyword
+ *  - cacheDir: directory to cache results; same-day re-runs read from cache
+ *
+ * @param {Array<{keyword: string}>} keywords
+ * @param {object} cfg
  * @returns {{ desktop: Map<string,number>, mobile: Map<string,number>|null }}
  */
 export async function fetchRankings(keywords, cfg) {
-  const { apiKey, projectId, domain, database } = cfg;
+  const { apiKey, projectId, domain, database, dryRun, cacheDir, trackDate } =
+    cfg;
+
+  // ── Dry-run: return mock data, zero API units spent ─────────────────────────
+  if (dryRun) {
+    console.log(
+      `[SEMrush] DRY RUN — returning mock positions (no API calls made)`,
+    );
+    const mock = (seed) =>
+      new Map(
+        keywords.map((kw, i) => [
+          kw.keyword.toLowerCase().trim(),
+          ((i * 7 + seed) % 100) + 1,
+        ]),
+      );
+    return { desktop: mock(3), mobile: mock(11) };
+  }
+
+  // ── Helper: fetch with cache ─────────────────────────────────────────────────
+  async function cachedFetch(device, fetcher) {
+    if (cacheDir && trackDate) {
+      const cached = cacheRead(cacheDir, trackDate, device);
+      if (cached) return cached;
+    }
+    const result = await fetcher();
+    if (cacheDir && trackDate) cacheWrite(cacheDir, trackDate, device, result);
+    return result;
+  }
 
   if (projectId) {
     console.log(`[SEMrush] Using Position Tracking (project ${projectId})`);
     const [desktop, mobile] = await Promise.all([
-      fetchPositionTracking(projectId, apiKey, "desktop", database),
-      fetchPositionTracking(projectId, apiKey, "mobile", database),
+      cachedFetch("desktop", () =>
+        fetchPositionTracking(projectId, apiKey, "desktop", database),
+      ),
+      cachedFetch("mobile", () =>
+        fetchPositionTracking(projectId, apiKey, "mobile", database),
+      ),
     ]);
     return { desktop, mobile };
   }
@@ -156,12 +214,15 @@ export async function fetchRankings(keywords, cfg) {
   console.log(
     `[SEMrush] No project ID set — using Organic Research (desktop only)`,
   );
-  const organic = await fetchDomainOrganic(domain, apiKey, database);
+  const organic = await cachedFetch("organic", () =>
+    fetchDomainOrganic(domain, apiKey, database),
+  );
 
-  // Convert to position-only map
+  // fetchDomainOrganic returns Map<kw, {position, url}> — normalise to position only
   const desktop = new Map();
   for (const [kw, data] of organic.entries()) {
-    desktop.set(kw, data.position);
+    // cached data may already be position-only (number) if loaded from disk
+    desktop.set(kw, typeof data === "number" ? data : data.position);
   }
 
   return { desktop, mobile: null };

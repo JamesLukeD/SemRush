@@ -44,12 +44,19 @@ const cfg = {
 
   // Output
   csvPath: resolve(ROOT, process.env.CSV_OUTPUT_PATH || "./data/rankings.csv"),
+
+  // Safety guards
+  dryRun: process.env.DRY_RUN === "true",
+  cacheDir: resolve(ROOT, ".cache"),
 };
 
 // Date for this run (YYYY-MM-DD)
 const trackDate = process.env.TRACK_DATE
   ? process.env.TRACK_DATE
   : new Date().toISOString().slice(0, 10);
+
+// Inject trackDate into cfg so semrush.js can key the cache correctly
+cfg.trackDate = trackDate;
 
 // ─── Main ────────────────────────────────────────────────────────────────────
 
@@ -58,6 +65,7 @@ async function main() {
   console.log(` SERP Tracker — ${trackDate}`);
   console.log(` Domain  : ${cfg.domain}`);
   console.log(` Database: ${cfg.database}`);
+  if (cfg.dryRun) console.log(` *** DRY RUN — no API units will be spent ***`);
   console.log(`========================================\n`);
 
   // 1. Load keywords
@@ -110,5 +118,9 @@ async function main() {
 
 main().catch((err) => {
   console.error("[Fatal]", err.message ?? err);
+  if (err.response) {
+    console.error("[Fatal] Status :", err.response.status);
+    console.error("[Fatal] Response:", JSON.stringify(err.response.data));
+  }
   process.exit(1);
 });
