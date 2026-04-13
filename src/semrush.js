@@ -125,11 +125,11 @@ export async function fetchDomainOrganic(
       display_limit: 500,
       export_columns: "Ph,Po",
     },
+    responseType: "text",
     timeout: 30_000,
   });
 
-  const text = response.data;
-  if (!text || typeof text !== "string") return results;
+  const text = String(response.data ?? "");
 
   // SEMrush returns errors as plain text with HTTP 200 — detect and throw
   if (typeof text === "string" && text.trimStart().startsWith("ERROR")) {
@@ -236,7 +236,9 @@ export async function fetchRankings(keywords, cfg) {
   }
 
   console.log(`[SEMrush] Using Organic Research (desktop only)`);
-  const targetSet = new Set(keywords.map((k) => k.keyword.toLowerCase().trim()));
+  const targetSet = new Set(
+    keywords.map((k) => k.keyword.toLowerCase().trim()),
+  );
   const organic = await cachedFetch("organic", () =>
     fetchDomainOrganic(domain, apiKey, database, targetSet),
   );
