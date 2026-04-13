@@ -103,21 +103,31 @@ export async function fetchPositionTracking(
  * @param {string} domain   - e.g. 'www.cawarden.co.uk'
  * @param {string} apiKey
  * @param {string} database - e.g. 'uk'
+ * @param {Set<string>} [targetKeywords] - stop early once all found (saves API units)
  * @returns {Map<string, {position: number, url: string}>}
  */
-export async function fetchDomainOrganic(domain, apiKey, database = "uk") {
+export async function fetchDomainOrganic(
+  domain,
+  apiKey,
+  database = "uk",
+  targetKeywords = null,
+) {
   const results = new Map();
   let offset = 0;
-  const limit = 10_000;
+  // Fetch in pages of 500 rows (500 × 10 units = 5,000 units per page)
+  const pageSize = 500;
+  // Hard cap: never fetch more than 1,000 rows total to protect API budget
+  const maxRows = 1_000;
 
-  while (true) {
+  while (results.size < maxRows) {
+    const fetchLimit = Math.min(pageSize, maxRows - results.size);
     const response = await axios.get(BASE_URL, {
       params: {
         type: "domain_organic",
         domain,
         database,
         key: apiKey,
-        display_limit: limit,
+        display_limit: fetchLimit,
         display_offset: offset,
         export_columns: "Ph,Po,Nq,Ur",
         export_escape: 1,
@@ -147,8 +157,23 @@ export async function fetchDomainOrganic(domain, apiKey, database = "uk") {
       }
     }
 
-    if (lines.length - 1 < limit) break;
-    offset += limit;
+    const rowsFetched = lines.length - 1;
+    console.log(
+      `[SEMrush] Fetched ${results.size} rows so far (offset ${offset})…`,
+    );
+
+    // Stop early if we have all our target keywords
+    if (targetKeywords) {
+      const found = [...targetKeywords].filter((k) => results.has(k)).length;
+      console.log(`[SEMrush] Found ${found}/${targetKeywords.size} target keywords`);
+      if (found === targetKeywords.size) {
+        console.log(`[SEMrush] All target keywords found — stopping early.`);
+        break;
+      }
+    }
+
+    if (rowsFetched < fetchLimit) break; // no more pages
+    offset += fetchLimit;
     await sleep(DELAY_MS);
   }
 
@@ -228,8 +253,9 @@ export async function fetchRankings(keywords, cfg) {
   }
 
   console.log(`[SEMrush] Using Organic Research (desktop only)`);
+  const targetSet = new Set(keywords.map((k) => k.keyword.toLowerCase().trim()));
   const organic = await cachedFetch("organic", () =>
-    fetchDomainOrganic(domain, apiKey, database),
+    fetchDomainOrganic(domain, apiKey, database, targetSet),
   );
 
   // fetchDomainOrganic returns Map<kw, {position, url}> — normalise to position only
