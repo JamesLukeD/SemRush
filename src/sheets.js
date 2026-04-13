@@ -17,6 +17,9 @@
  */
 
 import { google } from "googleapis";
+import { writeFileSync } from "fs";
+import { tmpdir } from "os";
+import { join } from "path";
 
 // Number of fixed left-hand columns (Group | Keyword | Avg Monthly Searches)
 const BASE_COLS = 3;
@@ -27,12 +30,18 @@ const BASE_COLS = 3;
  * @returns {import('googleapis').sheets_v4.Sheets}
  */
 function buildSheetsClient(cfg) {
+  // Write the key to a temp PEM file so OpenSSL reads raw bytes from disk.
+  // This avoids all JS-string / shell-escaping newline issues with GitHub secrets.
+  const rawKey = cfg.privateKey
+    .replace(/\\n/g, "\n") // literal \n → real newline
+    .replace(/\r\n/g, "\n") // CRLF → LF
+    .trim();
+  const keyFile = join(tmpdir(), `serp_pk_${process.pid}.pem`);
+  writeFileSync(keyFile, rawKey + "\n", { mode: 0o600 });
+
   const auth = new google.auth.JWT({
     email: cfg.serviceAccountEmail,
-    key: cfg.privateKey
-      .replace(/\\n/g, "\n")   // literal \n from GitHub secrets
-      .replace(/\r\n/g, "\n") // CRLF → LF
-      .trim(),                  // remove leading/trailing whitespace
+    keyFile,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
   return google.sheets({ version: "v4", auth });
