@@ -50,7 +50,9 @@ jobs:
           GOOGLE_PRIVATE_KEY:         ${{ secrets.GOOGLE_PRIVATE_KEY }}
           CSV_OUTPUT_PATH:            ./data/rankings.csv
           TRACK_DATE:                 ${{ github.event.inputs.track_date }}
-        run: node src/index.js
+        run: |
+          export GOOGLE_PRIVATE_KEY="$(printf '%s' "$GOOGLE_PRIVATE_KEY" | sed 's/\\n/\n/g')"
+          node src/index.js
 
       # ── Upload CSV as workflow artifact ─────────────────────────────────────
       - name: Upload rankings CSV
