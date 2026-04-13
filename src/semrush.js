@@ -121,17 +121,18 @@ export async function fetchDomainOrganic(
 
   while (results.size < maxRows) {
     const fetchLimit = Math.min(pageSize, maxRows - results.size);
+    const params = {
+      type: "domain_organic",
+      domain,
+      database,
+      key: apiKey,
+      display_limit: fetchLimit,
+      export_columns: "Ph,Po,Nq,Ur",
+      export_escape: 1,
+    };
+    if (offset > 0) params.display_offset = offset;
     const response = await axios.get(BASE_URL, {
-      params: {
-        type: "domain_organic",
-        domain,
-        database,
-        key: apiKey,
-        display_limit: fetchLimit,
-        display_offset: offset,
-        export_columns: "Ph,Po,Nq,Ur",
-        export_escape: 1,
-      },
+      params,
       timeout: 30_000,
     });
 
