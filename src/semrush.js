@@ -131,6 +131,11 @@ export async function fetchDomainOrganic(
   const text = response.data;
   if (!text || typeof text !== "string") return results;
 
+  // SEMrush returns errors as plain text with HTTP 200 — detect and throw
+  if (typeof text === "string" && text.trimStart().startsWith("ERROR")) {
+    throw new Error(`SEMrush API error: ${text.trim()}`);
+  }
+
   const lines = text.trim().split("\n");
   if (lines.length <= 1) return results; // only header, no data
 

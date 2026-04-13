@@ -29,7 +29,10 @@ const BASE_COLS = 3;
 function buildSheetsClient(cfg) {
   const auth = new google.auth.JWT({
     email: cfg.serviceAccountEmail,
-    key: cfg.privateKey.replace(/\\n/g, "\n"),
+    key: cfg.privateKey
+      .replace(/\\n/g, "\n")   // literal \n from GitHub secrets
+      .replace(/\r\n/g, "\n") // CRLF → LF
+      .trim(),                  // remove leading/trailing whitespace
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
   return google.sheets({ version: "v4", auth });
