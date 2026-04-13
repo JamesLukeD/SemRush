@@ -199,21 +199,35 @@ export async function fetchRankings(keywords, cfg) {
   }
 
   if (projectId) {
-    console.log(`[SEMrush] Using Position Tracking (project ${projectId})`);
-    const [desktop, mobile] = await Promise.all([
-      cachedFetch("desktop", () =>
-        fetchPositionTracking(projectId, apiKey, "desktop", database),
-      ),
-      cachedFetch("mobile", () =>
-        fetchPositionTracking(projectId, apiKey, "mobile", database),
-      ),
-    ]);
-    return { desktop, mobile };
+    console.log(
+      `[SEMrush] Trying Position Tracking API (project ${projectId})…`,
+    );
+    try {
+      const [desktop, mobile] = await Promise.all([
+        cachedFetch("desktop", () =>
+          fetchPositionTracking(projectId, apiKey, "desktop", database),
+        ),
+        cachedFetch("mobile", () =>
+          fetchPositionTracking(projectId, apiKey, "mobile", database),
+        ),
+      ]);
+      return { desktop, mobile };
+    } catch (err) {
+      const status = err?.response?.status;
+      if (status === 400 || status === 403 || status === 401) {
+        console.warn(
+          `[SEMrush] Position Tracking API returned ${status} — this plan may require OAuth.`,
+        );
+        console.warn(
+          `[SEMrush] Falling back to Organic Research (desktop only)…`,
+        );
+      } else {
+        throw err;
+      }
+    }
   }
 
-  console.log(
-    `[SEMrush] No project ID set — using Organic Research (desktop only)`,
-  );
+  console.log(`[SEMrush] Using Organic Research (desktop only)`);
   const organic = await cachedFetch("organic", () =>
     fetchDomainOrganic(domain, apiKey, database),
   );
