@@ -113,70 +113,47 @@ export async function fetchDomainOrganic(
   targetKeywords = null,
 ) {
   const results = new Map();
-  let offset = 0;
-  // Fetch in pages of 500 rows (500 × 10 units = 5,000 units per page)
-  const pageSize = 500;
-  // Hard cap: never fetch more than 1,000 rows total to protect API budget
-  const maxRows = 1_000;
 
-  while (results.size < maxRows) {
-    const fetchLimit = Math.min(pageSize, maxRows - results.size);
-    const params = {
+  // Single fetch of 500 rows — ~5,000 API units.
+  // cawardenreclaim.co.uk ranks for ~500 keywords; our 368 targets should be within that.
+  const response = await axios.get(BASE_URL, {
+    params: {
       type: "domain_organic",
       domain,
       database,
       key: apiKey,
-      display_limit: fetchLimit,
-      export_columns: "Ph,Po,Nq,Ur",
-      export_escape: 1,
-    };
-    if (offset > 0) params.display_offset = offset;
-    const response = await axios.get(BASE_URL, {
-      params,
-      timeout: 30_000,
-    });
+      display_limit: 500,
+      export_columns: "Ph,Po",
+    },
+    timeout: 30_000,
+  });
 
-    const text = response.data;
-    if (!text || typeof text !== "string") break;
+  const text = response.data;
+  if (!text || typeof text !== "string") return results;
 
-    const lines = text.trim().split("\n");
-    if (lines.length <= 1) break; // only header, no data
+  const lines = text.trim().split("\n");
+  if (lines.length <= 1) return results; // only header, no data
 
-    // First line is the CSV header
-    const headers = lines[0].split(";");
-    const phIdx = headers.indexOf("Keyword");
-    const poIdx = headers.indexOf("Position");
-    const urIdx = headers.indexOf("URL");
+  // Header row: "Keyword;Position"
+  const headers = lines[0].split(";");
+  const phIdx = headers.indexOf("Keyword");
+  const poIdx = headers.indexOf("Position");
 
-    for (let i = 1; i < lines.length; i++) {
-      const cols = lines[i].split(";");
-      const kw = (cols[phIdx] ?? "").toLowerCase().trim();
-      const pos = parseInt(cols[poIdx], 10);
-      const url = cols[urIdx] ?? "";
-      if (kw && !isNaN(pos)) {
-        results.set(kw, { position: pos, url });
-      }
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(";");
+    const kw = (cols[phIdx] ?? "").toLowerCase().trim();
+    const pos = parseInt(cols[poIdx], 10);
+    if (kw && !isNaN(pos)) {
+      results.set(kw, { position: pos, url: "" });
     }
-
-    const rowsFetched = lines.length - 1;
-    console.log(
-      `[SEMrush] Fetched ${results.size} rows so far (offset ${offset})…`,
-    );
-
-    // Stop early if we have all our target keywords
-    if (targetKeywords) {
-      const found = [...targetKeywords].filter((k) => results.has(k)).length;
-      console.log(`[SEMrush] Found ${found}/${targetKeywords.size} target keywords`);
-      if (found === targetKeywords.size) {
-        console.log(`[SEMrush] All target keywords found — stopping early.`);
-        break;
-      }
-    }
-
-    if (rowsFetched < fetchLimit) break; // no more pages
-    offset += fetchLimit;
-    await sleep(DELAY_MS);
   }
+
+  const found = targetKeywords
+    ? [...targetKeywords].filter((k) => results.has(k)).length
+    : results.size;
+  console.log(
+    `[SEMrush] Fetched ${results.size} organic rows — found ${found}${targetKeywords ? `/${targetKeywords.size}` : ""} target keywords`,
+  );
 
   return results;
 }
