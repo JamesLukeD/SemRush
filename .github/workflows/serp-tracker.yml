@@ -11,6 +11,11 @@ on:
         description: 'Override date (YYYY-MM-DD). Leave blank for today.'
         required: false
         type: string
+      dry_run:
+        description: 'Dry run (no SEMrush API calls, uses mock data — free)'
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: serp-tracker
@@ -50,6 +55,7 @@ jobs:
           GOOGLE_PRIVATE_KEY:         ${{ secrets.GOOGLE_PRIVATE_KEY }}
           CSV_OUTPUT_PATH:            ./data/rankings.csv
           TRACK_DATE:                 ${{ github.event.inputs.track_date }}
+          DRY_RUN:                    ${{ github.event.inputs.dry_run || 'false' }}
         run: |
           export GOOGLE_PRIVATE_KEY="$(printf '%s' "$GOOGLE_PRIVATE_KEY" | sed 's/\\n/\n/g')"
           node src/index.js
